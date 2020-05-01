@@ -1,0 +1,38 @@
+:root {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+html {
+    line-height: 25px;
+    var(padding = 175)
+    border: blue;
+    padding-top: 20px;
+    padding-bottom: 50px;
+
+}
+
+.tableLayout {
+    text-align: center;
+    padding-left: 30px;
+    padding-right: 0;
+}
+
+.alignCenter {
+    horiz-align: center;
+}
+
+.alignLeft {
+    horiz-align: left;
+}
+
+.blueFont {
+    color: blue;
+}
+
+.redFont {
+    color: red;
+}
+
+.floatLeft { width: 50%; float: left; }
+.floatRight {width: 50%; float: right; }
+.container { overflow: hidden; }
