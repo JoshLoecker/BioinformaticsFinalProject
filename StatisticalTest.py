@@ -6,7 +6,8 @@
 
 import numpy as np
 import pandas as pd
-from scipy import stats
+import scipy.stats as stats
+import matplotlib.pyplot as plt
 
 class StatisticalTest:
 	fips = 'fips'
@@ -33,7 +34,8 @@ class StatisticalTest:
 
 	def __init__(self):
 		values = self.return_values()
-		self.calculate_statistics(values)
+		self.calculate_t_test(values)
+		self.qq_plot(values)
 		self.average_group_population()
 
 	def return_values(self):
@@ -52,7 +54,7 @@ class StatisticalTest:
 		return female_incidence, female_mortality, male_incidence, male_mortality
 
 	# values: female_incidence, female_mortality, male_incidence, male_mortality
-	def calculate_statistics(self, values):
+	def calculate_t_test(self, values):
 
 		# calculate incidence rate between males and females
 		# null hypothesis: men and women have similar incidence rates
@@ -61,10 +63,18 @@ class StatisticalTest:
 		incidence_statistic, incidence_p_value = stats.ttest_rel(values[0], values[2])
 		mortality_statistic, mortality_p_value = stats.ttest_rel(values[1], values[3])
 
-		# print("Incidence statistic: %s" % incidence_statistic)
-		# print("Incidence p value: %s" % incidence_p_value)
-		# print("Mortality statistic: %s" % mortality_statistic)
-		# print("Mortality p value: %s" % mortality_p_value)
+	# values: female_incidence, female_mortality, male_incidence, male_mortality
+	def qq_plot(self, values):
+		stats.probplot(values[0])
+
+		fig = plt.figure()
+		ax = fig.add_subplot(111)
+		x = stats.loggamma.rvs(c=2.5, size=len(values[0]))
+		res = stats.probplot(x, dist=stats.loggamma, sparams=(2.5,), plot=ax)
+		ax.set_title("This is my title")
+		plt.show()
+
+
 
 	def average_group_population(self):
 		female_incidence = 0
@@ -77,8 +87,3 @@ class StatisticalTest:
 			female_mortality += StatisticalTest.data_frame[StatisticalTest.female_mortality][index]
 			male_incidence += StatisticalTest.data_frame[StatisticalTest.male_incidence][index]
 			male_mortality += StatisticalTest.data_frame[StatisticalTest.male_mortality][index]
-
-		# print("female_incidence: %s" % female_incidence)
-		# print("female_mortality: %s" % female_mortality)
-		# print("male_incidence: %s" % male_incidence)
-		# print("male_mortality: %s" % male_mortality)

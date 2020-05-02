@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<script>
+			function changeMap() {
+				document.getElementById("mapType").src = document.getElementById("selection").value;
+			}
+			function firstRunMap() {
+				document.getElementById("mapType").src = "Project Files/total_incidence.html";
+			}
+		</script>
+		
 		<link rel="stylesheet" , href="Project%20Files/styles.css">
 		<title>Loecker Bioinformatics Final Project</title>
 	</head>
-	<body>
+	<body onload="firstRunMap()">
 
 		<div class="alignLeft">
 			<h2><u>
@@ -21,9 +30,12 @@
 
 			<p>
 				The CDC has collected data from each state from 1999 to 2016 on the incidence of cancer and moratlity from it.
-				The data is available for download <a href="https://www.cdc.gov/cancer/uscs/dataviz/download_data.htm">at this link</a>;
+				The data is available for download <a
+					href="https://www.cdc.gov/cancer/uscs/dataviz/download_data.htm" target="_blank">at this link</a>;
 				in addition, the CDC has created their own visualizations. These graphs are available
-				<a href="https://gis.cdc.gov/Cancer/USCS/DataViz.html">here</a>. However, the graphs availabe on thir website
+				<a href="https://gis.cdc.gov/Cancer/USCS/DataViz.html" target="_blank">here</a>. However, the graphs
+				availabe on
+				thir website
 				only consist of data from 2016. The graphs below encompass all incidence and mortality rates from 1999 to 2016
 				for all races.
 				<br />
@@ -38,150 +50,164 @@
 				people. As a result, higher numbers of people mean a higher incidence and mortality rate of cancer. This
 				can be seen in every graph shown below, with California, Texas, and Florida outmatching nearly every other
 				state. In some cases New York shows a presence.
-			</p>
-
-			<h4>Total Incidence Rate</h4>
-			<p>
+				
+				<br />
+				<br />
 				The first map shows an incidence rate for both males and females, for all races. California has the highest
 				incidence rate at approximately 826,000 cases since 1999; Florida follows with just under 610,000 incidence
 				rates. While California has a much higher total incidence rate, a simple explanation for this is that their
 				population is much higher than any other state.
-			</p>
-				<iframe src="Project Files/total_incidence.html" frameborder="5" scrolling="no" width="100%" height="512"> </iframe>
-
-			<h4> <br /> Total Mortality Rate</h4>
-			<p>
-				The second map shows the incidence rate for males and females of all races. Again, California has the highest
+				
+				<br />
+				<br />
+				The second map shows the mortality rate for males and females of all races. Again, California has the highest
 				mortality rate at approximately 293,000 deaths. Much like incidence rate, this is most easily explained because
 				the California population is much higher than that of other states. Following incidence rate trends, Florida
 				has the second highest mortality rate.  Since more incidences of cancer most likely result in more deaths,
 				it makes sense that California and Florida take the top two spots for deaths caused by cancer.
+				<br />
+				<br />
 			</p>
-				<iframe src="Project Files/total_mortality.html" frameborder="5" scrolling="no" width="100%" height="512"> </iframe>
+		</div>
+		
+		
+		<div class="mapAlignCenter">
+			<label for="selection">Select a map:</label>
+			<select id="selection">
+				<option value="Project Files/total_incidence.html">Total Incidence</option>
+				<option value="Project Files/total_mortality.html">Total Mortality</option>
+					
+				<option value="Project Files/female_incidence.html">Female Incidence</option>
+				<option value="Project Files/female_mortality.html">Female Mortality</option>
+					
+				<option value="Project Files/male_incidence.html">Male Incidence</option>
+				<option value="Project Files/male_mortality.html">Male Mortality</option>
+			</select>
+				
+			<br />
+			<button type="button" onclick="changeMap();">Update Map</button>
+			<br />
+			<iframe
+				id="mapType"
+				src="about:blank"
+				frameborder="5"
+				scrolling="no"
+				width="100%"
+				height="512">
+			</iframe>
+			<br />
+			<form action="Project%20Files/all_maps.html" target="_blank">
+				<input type="submit" value="Compare all maps on another page"/>
+			</form>
+		</div>
 
-
-			<h4> <br /> Female Incidence Rate</h4>
-			<p>
-				text
-			</p>
-				<iframe src="Project Files/female_incidence.html" frameborder="5" scrolling="no" width="100%" height="512"> </iframe>
-
-			<h4> <br /> Female Mortality Rate</h4>
-			<p>
-				text
-			</p>
-				<iframe src="Project Files/female_mortality.html" frameborder="5" scrolling="no" width="100%" height="512"> </iframe>
-
-			<h4> <br /> Male Incidence</h4>
-			<p>
-				text
-			</p>
-				<iframe src="Project Files/male_incidence.html" frameborder="5" scrolling="no" width="100%" height="512"> </iframe>
-
-			<h4><br /> Male Mortality</h4>
-			<p>
-				text
-			</p>
-				<iframe src="Project Files/male_mortality.html" frameborder="5" scrolling="no" width="100%" height="512"> </iframe>
-
-
+		<div class="alignLeft">
 			<h2><u>Statistical Tests</u></h2>
 			<p>
+		
 				A t-test was performed using Python's SciPy library on incidence rate and mortality rate. A t-test allows
 				to compare the average values between two datasets, and determine if there is a statistical difference
 				between the sets. In this case, the null hypothesis for each data set can be seen in the table below.
+			</p>
 
-
-				<span class="tableLayout">
-					<table align="center" border="1px" cellpadding="5px">
-						<tr>
-							<th></th>
-							<th>Incidence Rate</th>
-							<th>Mortality Rate</th>
-						</tr>
-						<tr>
-							<th>Null Hypothesis</th>
+			<!--- Null Hypothesis table  --->
+			<br />
+			<span class="tableLayout">
+				<table align="center" border="1px" cellpadding="5px">
+					<tr>
+						<th></th>
+						<th>Incidence Rate</th>
+						<th>Mortality Rate</th>
+					</tr>
+					<tr>
+						<th>Null Hypothesis</th>
 							<th>Male and female rates are statistically <span class="blueFont">similar</span> </th>
 							<th>Male and female rates are statistically <span class="blueFont">similar</span> </th>
 						</tr>
-						<tr>
-							<th>Alternate Hypothesis</th>
-							<th>Male and female rates are statistically <span class="redFont">different</span> </th>
-							<th>Male and female rates are statistically <span	class="redFont">different</span> </th>
-						</tr>
-					</table>
-				</span>
-
-
-				<br />
-				<br />
+					<tr>
+						<th>Alternate Hypothesis</th>
+						<th>Male and female rates are statistically <span class="redFont">different</span> </th>
+						<th>Male and female rates are statistically <span	class="redFont">different</span> </th>
+					</tr>
+				</table>
+			</span>
+			<br />
+			
+			<p>
 				The results of each test can be seen in the following tables. The p-value for the incidene rate shows
 				that the average incidence is statistically different between men and women, because the p-value is
 				greater than 0.05. On the other hand, the p-value for mortality rate between men and women is
 				statistically similar because the p-value is far less than 0.05.
+				<br />
 				<br />
 				When looking at the data sets for incidence and mortality between men and women, the number of people
 				in each set is not extremely different; there is actually a larger disparity between mortality in men
 				and women than there is in the incidence rate.
 				These values show that cancer occurs at a different rate between men and women, but both men and
 				women die at a similar rate.
-				<br />
-				<br />
-
-				<div class="container">
-					<div class="floatLeft">
-						<table align="center" border="1px" cellpadding="5px">
-							<tr>
-								<th colspan="3">Tests</th>
-							</tr>
-							<tr>
-								<th></th>
-								<th>Incidence Rate</th>
-								<th>Mortality Rate</th>
-							</tr>
-							<tr>
-								<th>Statistical test</th>
-								<th>-1.556</th>
-								<th>-6.293</th>
-							</tr>
-							<tr>
-								<th>P-value</th>
-								<th>0.126</th>
-								<th>8.264e-08</th>
-							</tr>
-						</table>
-					</div>
-					<div class="floatRight">
-						<table align="center" border="1px" cellpadding="5px">
-							<tr>
-								<th colspan="3">Data Sets</th>
-							</tr>
-							<tr>
-								<th></th>
-								<th>Incidence</th>
-								<th>Mortality</th>
-							</tr>
-							<tr>
-								<th>Female</th>
-								<th>4,062,174 people</th>
-								<th>1,397,428 people</th>
-							</tr>
-							<tr>
-								<th>Male</th>
-								<th>4,114,287 people</th>
-								<th>1,550,279 people</th>
-							</tr>
-						</table>
-					</div>
-				</div>
-			
-		</div>
-
-
-			<h3><br /> Citations</h3>
-			<p>
-				Cancer Statistics - National Cancer Institute. (2018). Retrieved from https://www.cancer.gov/about-cancer/understanding/statistics
 			</p>
 
+			<!--- t-test tables --->
+			<br />
+			<div class="container">
+				<div class="floatLeft">
+					<table align="center" border="1px" cellpadding="5px">
+						<tr>
+							<th colspan="3">Tests</th>
+						</tr>
+						<tr>
+							<th></th>
+							<th>Incidence Rate</th>
+							<th>Mortality Rate</th>
+						</tr>
+						<tr>
+							<th>Statistical test</th>
+							<th>-1.556</th>
+							<th>-6.293</th>
+						</tr>
+						<tr>
+							<th>P-value</th>
+							<th>0.126</th>
+							<th>8.264e-08</th>
+						</tr>
+					</table>
+				</div>
+				<div class="floatRight">
+					<table align="center" border="1px" cellpadding="5px">
+						<tr>
+							<th colspan="3">Data Sets</th>
+						</tr>
+						<tr>
+							<th></th>
+							<th>Incidence</th>
+							<th>Mortality</th>
+						</tr>
+						<tr>
+							<th>Female</th>
+							<th>4,062,174 people</th>
+							<th>1,397,428 people</th>
+						</tr>
+						<tr>
+							<th>Male</th>
+							<th>4,114,287 people</th>
+							<th>1,550,279 people</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="alignCenter">
+			<br />
+			<br />
+			<h3>Citations</h3>
+			
+			<p>
+				The source code for this project can be found on my <a
+					href="https://github.com/JoshLoecker/BioinformaticsFinalProject" target="_blank">GitHub Repo.</a>
+				The raw data can be found under "statistics/map_data.csv".
+				<br />
+				Cancer Statistics - National Cancer Institute. (2018). Retrieved from https://www.cancer.gov/about-cancer/understanding/statistics
+			</p>
+		</div>
 	</body>
 </html>

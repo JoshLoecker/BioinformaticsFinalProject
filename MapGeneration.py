@@ -15,6 +15,7 @@ class MapGeneration:
 	male_mortality = 'male_mortality'
 	total_incidence = 'total_incidence'
 	total_mortality = 'total_mortality'
+	state_population = 'state_population'
 
 	@staticmethod
 	def calculate_max_value(key):
@@ -50,7 +51,8 @@ class MapGeneration:
 		                                                         'division': str,
 		                                                         'state': str,
 		                                                         'region_name': str,
-		                                                         'division_name': str
+		                                                         'division_name': str,
+		                                                         'state_population': str
 		                                                         })
 
 		# this csv file will act as the database for information on creating the map
@@ -61,6 +63,7 @@ class MapGeneration:
 			filewriter.writerow([MapGeneration.fips,
 			                     MapGeneration.state_abbr,
 			                     MapGeneration.state_name,
+			                     MapGeneration.state_population,
 			                     MapGeneration.female_incidence,
 			                     MapGeneration.female_mortality,
 			                     MapGeneration.male_incidence,
@@ -74,6 +77,7 @@ class MapGeneration:
 				row = [state_info['fips'][index],
 				       state_info['state_abbr'][index],
 				       state_info['state_name'][index],
+				       state_info['state_population'][index],
 				       DataFrame.female_incidence[index].COUNT,
 				       DataFrame.female_mortality[index].COUNT,
 				       DataFrame.male_incidence[index].COUNT,
@@ -134,6 +138,7 @@ class MapGeneration:
 			            reversescale=True,
 			            colorbar_title=map_labels[key][1])
 			layout = dict(title=map_labels[key][0],
+			              dragmode=False,
 			              geo_scope='usa')
 
 			# save maps

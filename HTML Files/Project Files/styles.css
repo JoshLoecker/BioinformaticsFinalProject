@@ -17,7 +17,15 @@ html {
     padding-right: 0;
 }
 
+.mapAlignCenter {
+    margin: auto;
+    width: 90%;
+    text-align: center;
+}
+
 .alignCenter {
+    width: 100%;
+    text-align: center;
     horiz-align: center;
 }
 

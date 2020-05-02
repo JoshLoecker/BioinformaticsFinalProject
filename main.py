@@ -20,5 +20,5 @@ if __name__ == "__main__":
 	print("Generating map. . .")
 	MapGeneration.generate_map()     # map creation
 
-	print("Calculating Statistics")
+	print("Calculating statistics. . .")
 	StatisticalTest()
