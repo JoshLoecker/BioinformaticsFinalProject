@@ -35,7 +35,7 @@ class StatisticalTest:
 	def __init__(self):
 		values = self.return_values()
 		self.calculate_t_test(values)
-		self.qq_plot(values)
+		# self.qq_plot(values)
 		self.average_group_population()
 
 	def return_values(self):
@@ -59,9 +59,19 @@ class StatisticalTest:
 		# calculate incidence rate between males and females
 		# null hypothesis: men and women have similar incidence rates
 		# alternate hypothesis: incidence rates between men and women are different
+		# p-value
+		#
 
-		incidence_statistic, incidence_p_value = stats.ttest_rel(values[0], values[2])
-		mortality_statistic, mortality_p_value = stats.ttest_rel(values[1], values[3])
+		print(stats.f_oneway(values[0], values[2]))
+		print(stats.f_oneway(values[1], values[3]))
+
+		incidence = stats.ttest_ind(values[0], values[2])
+		mortality = stats.ttest_ind(values[1], values[3])
+
+		print(incidence)
+		print(mortality)
+
+
 
 	# values: female_incidence, female_mortality, male_incidence, male_mortality
 	def qq_plot(self, values):
