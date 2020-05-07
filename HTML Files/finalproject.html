@@ -6,11 +6,11 @@
 				document.getElementById("mapType").src = document.getElementById("selection").value;
 			}
 			function firstRunMap() {
-				document.getElementById("mapType").src = "Project Files/total_incidence.html";
+				document.getElementById("mapType").src = "project_files/total_incidence.html";
 			}
 		</script>
 		
-		<link rel="stylesheet" , href="Project%20Files/styles.css">
+		<link rel="stylesheet" , href="project_files/styles.css">
 		<title>Loecker Bioinformatics Final Project</title>
 	</head>
 	<body onload="firstRunMap()">
@@ -74,14 +74,14 @@
 		<div class="mapAlignCenter">
 			<label for="selection">Select a map:</label>
 			<select id="selection">
-				<option value="Project Files/total_incidence.html">Total Incidence</option>
-				<option value="Project Files/total_mortality.html">Total Mortality</option>
+				<option value="project_files/total_incidence.html">Total Incidence</option>
+				<option value="project_files/total_mortality.html">Total Mortality</option>
 					
-				<option value="Project Files/female_incidence.html">Female Incidence</option>
-				<option value="Project Files/female_mortality.html">Female Mortality</option>
+				<option value="project_files/female_incidence.html">Female Incidence</option>
+				<option value="project_files/female_mortality.html">Female Mortality</option>
 					
-				<option value="Project Files/male_incidence.html">Male Incidence</option>
-				<option value="Project Files/male_mortality.html">Male Mortality</option>
+				<option value="project_files/male_incidence.html">Male Incidence</option>
+				<option value="project_files/male_mortality.html">Male Mortality</option>
 			</select>
 				
 			<br />
@@ -96,7 +96,7 @@
 				height="512">
 			</iframe>
 			<br />
-			<form action="Project%20Files/all_maps.html" target="_blank">
+			<form action="project_files/all_maps.html" target="_blank">
 				<input type="submit" value="Compare all maps on another page"/>
 			</form>
 		</div>
@@ -105,70 +105,58 @@
 			<h2><u>Statistical Tests</u></h2>
 			<p>
 		
-				A z-test was performed using Python's SciPy library on incidence and mortality rate. A z-test was
-				used as opposed to a t-test because 50 data points are present in the set, and a t-test works best
-				when there are around 20-30 points (Anderson). A z-test allows to compare the average values between two
-				datasets, and determine if there is a statistical difference between the sets. In this case, the null
-				hypothesis for each data set can be seen in the table below.
-			</p>
-
-			<!--- Null Hypothesis table  --->
-			<br />
-			<span class="tableLayout">
-				<table align="center" border="1px" cellpadding="5px">
-					<tr>
-						<th></th>
-						<th>Hypotheses for Incidence and Mortality Rate</th>
-					</tr>
-					<tr>
-						<th>Null Hypothesis</th>
-						<th>Male and female rates are statistically <span class="blueFont">similar</span> </th>
-					</tr>
-					<tr>
-						<th>Alternate Hypothesis</th>
-						<th>Male and female rates are statistically <span class="redFont">different</span> </th>
-					</tr>
-				</table>
-			</span>
-			<br />
-			
-			
-			<p>
-				The results of each test can be seen in the following tables. The p-value for the incidene rate shows
-				that the average incidence is statistically different between men and women, because the p-value is
-				greater than 0.05. On the other hand, the p-value for mortality rate between men and women is
-				statistically similar because the p-value is far less than 0.05.
+				An ANOVA test was performed using Python's SciPy library on incidence and mortality rate. This test
+				was used to compare the variances in the mean between male and female incidence rate, along with male
+				and female mortality rate. Examining the p-value (shown below) of these results can be used to compare
+				determine if a statistical difference is present between male and female rates of cancer, and deaths
+				due to cancer. Two hypothesis exist for the data I have presented; these are shown below.
+				<br />
+				Null hypothesis 1: Male and female <u>incidence</u> rates are statistically similar
+				<br />
+				Null hypothesis 2: Male and female <u>mortality</u> rates are statistically similar
+				
 				<br />
 				<br />
 				When looking at the data sets for incidence and mortality between men and women, the number of people
-				in each set is not extremely different; there is actually a larger disparity between mortality in men
-				and women than there is in the incidence rate.
-				These values show that cancer occurs at a different rate between men and women, but both men and
-				women die at a similar rate.
+				in each set is not extremely different. From 1999 to 2016, slightly more men have both been diagnosed
+				with cancer and died from it. This is a reasonable outcome, as there are slightly more males in the
+				population than females (Smirnova).
+				
+				<br />
+				<br />
+				The results of each test can be seen in the ANOVA Test table. The p-value for both incidence rate and
+				mortality is far above 0.05; because of this, it can be concluded that no statistical difference
+				exists in the incidence	or death of cancer between men and women.
+				<br />
+				An error that may come into play for the ANOVA test is that the rates of cancer may not be normally
+				distributed; if the average age of incidence is significantly different, the ANOVA test is not
+				suitable for analysis.
+				<br />
+				<br />
 			</p>
-
+			
+			
 			<!--- t-test tables --->
-			<br />
 			<div class="container">
 				<div class="floatLeft">
 					<table align="center" border="1px" cellpadding="5px">
 						<tr>
-							<th colspan="3">T-Test</th>
+							<th colspan="3">ANOVA Test</th>
 						</tr>
 						<tr>
 							<th></th>
+							<th>Statistic</th>
+							<th>P-Value</th>
+						</tr>
+						<tr>
 							<th>Incidence Rate</th>
+							<th>0.0038</th>
+							<th>0.9511</th>
+						</tr>
+						<tr>
 							<th>Mortality Rate</th>
-						</tr>
-						<tr>
-							<th>Statistical test</th>
-							<th>-1.556</th>
-							<th>-6.293</th>
-						</tr>
-						<tr>
-							<th>P-value</th>
-							<th>0.126</th>
-							<th>8.264e-08</th>
+							<th>0.2609</th>
+							<th>0.6107</th>
 						</tr>
 					</table>
 				</div>
@@ -198,7 +186,6 @@
 		</div>
 		<div class="alignLeft">
 			<br />
-			<br />
 			<h2><u>Citations</u></h2>
 			<p>
 				The source code for this project can be found on my <a
@@ -207,8 +194,8 @@
 				<br />
 				Cancer Statistics - National Cancer Institute. (2018). Retrieved from https://www.cancer.gov/about-cancer/understanding/statistics
 				<br />
-				Anderson, Paul [Bozeman Science]. (2016, Apr, 13). <i>Student's t-test</i> [Video file].
-				https://www.youtube.com/watch?v=pTmLQvMM-1M
+				Smirnova, J. (2015). See where women outnumber men around the world (and why). Retrieved from
+				https://www.washingtonpost.com/news/worldviews/wp/2015/08/19/see-where-women-outnumber-men-around-the-world-and-why/
 			</p>
 		</div>
 	</body>

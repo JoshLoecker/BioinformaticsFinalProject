@@ -62,14 +62,10 @@ class StatisticalTest:
 		# p-value
 		#
 
-		print(stats.f_oneway(values[0], values[2]))
-		print(stats.f_oneway(values[1], values[3]))
+		incidence_statistic, incidence_p_value = stats.f_oneway(values[0], values[2])
+		mortality_statistic, mortality_p_value = stats.f_oneway(values[1], values[3])
 
-		incidence = stats.ttest_ind(values[0], values[2])
-		mortality = stats.ttest_ind(values[1], values[3])
 
-		print(incidence)
-		print(mortality)
 
 
 

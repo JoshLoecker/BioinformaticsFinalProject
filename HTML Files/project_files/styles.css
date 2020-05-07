@@ -41,6 +41,6 @@ html {
     color: red;
 }
 
-.floatLeft { width: 50%; float: left; }
-.floatRight {width: 50%; float: right; }
+.floatLeft { float: left; padding-left: 225px;}
+.floatRight {float: right; padding-right: 200px;}
 .container { overflow: hidden; }

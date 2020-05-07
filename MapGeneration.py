@@ -142,7 +142,7 @@ class MapGeneration:
 			              geo_scope='usa')
 
 			# save maps
-			file_name = r"HTML Files/Project Files/%s.html" % key
+			file_name = r"HTML Files/project_files/%s.html" % key
 			choropleth = dict(data=data, layout=layout)
 
 			link = plotly.offline.plot(choropleth,filename=file_name, auto_open=False, show_link=True)
