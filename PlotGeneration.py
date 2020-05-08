@@ -236,6 +236,7 @@ class PlotGeneration:
 		                            filename=file_name,
 		                            auto_open=False,
 		                            show_link=True)]
+		# may need to use plotly.express for this
 		PlotGeneration.update_html(link, "single")
 
 
