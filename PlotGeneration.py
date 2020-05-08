@@ -229,18 +229,52 @@ class PlotGeneration:
 
 	@staticmethod
 	def generate_boxplot():
-		data = dict(type='box',
-		            boxpoints=[ 1, 2, 3, 4, 5, 6 ])
-		layout = dict(title="Mortality and Incidence Visualization")
+		from plotly import express as px
+		incidence_values = PlotGeneration.map_data["total_incidence"]
+		state_names = PlotGeneration.map_data['state_name']
+		incidence_values_per_thousand = []
+		for value in incidence_values:
+			incidence_values_per_thousand.append(value / 1000)
 
-		boxplot = dict(data=data, layout=layout)
+		print(incidence_values_per_thousand)
+
+		data = dict(
+			alignmentgroup=True,
+			orientation='v',
+			type='box',
+			y=[[1, 2, 3, 4, 5, 6], [7, 8, 9, 10]],
+			x=['a', 'b'],
+			yaxis='y1',
+		)
+		layout = dict(
+			boxmode='group',
+			margin={'t': 60},
+		)
+
 		file_name = r"HTML Files/project_files/boxplot.html"
-		link = [ plotly.offline.plot(boxplot,
+		boxplot = dict(data=data, layout=layout)
+		link = [plotly.offline.plot(boxplot,
+		                             filename=file_name,
+		                             auto_open=False,
+		                             show_link=True) ]
+
+
+
+		"""
+
+		fig.show(filename="HTML Files/project_files/boxplot.html",
+		         auto_open=False,
+		         show_link=True)
+	
+	
+		file_name = r"HTML Files/project_files/boxplot.html"
+		link = [plotly.offline.plot(boxplot,
 		                             filename=file_name,
 		                             auto_open=False,
 		                             show_link=True) ]
 		# may need to use plotly.express for this
 		PlotGeneration.update_html(link, "single")
+		"""
 
 	# This function will simply save the HTML file into HTML Files/Project Files
 	# number should be "single" or "multi"
