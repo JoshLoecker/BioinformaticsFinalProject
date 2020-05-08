@@ -135,55 +135,91 @@
 				<br />
 			</p>
 			
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="td" colspan="3">ANOVA Test</td>
+                        <td class="tdBlank"></td>
+                        <td class="td" colspan="3">Data Sets</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="td"></td>
+                        <td class="td">Statistic</td>
+                        <td class="td">P-Value</td>
+                        
+                        <td class="tdBlank"></td>
+                        
+                        <td class="td"></td>
+                        <td class="td">Incidence</td>
+                        <td class="td">Mortality</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Incidence Rate</td>
+                        <td class="td">0.0038</td>
+                        <td class="td">0.9511</td>
+                        
+                        <td class="tdBlank"></td>
+                        
+                        <td class="td">Female</td>
+                        <td class="td">4,062,174 people</td>
+                        <td class="td">1,397,428 people</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th class="td">Mortality Rate</th>
+                        <th class="td">0.2609</th>
+                        <th class="td">0.6107</th>
+                        
+                        <th class="tdBlank"></th>
+                        
+                        <th class="td">Male</th>
+                        <th class="td">4,114,287 people</th>
+                        <th class="td">1,550,279 people</th>
+                        
+                    </tr>
+                </tfoot>
+            </table>
 			
-			<!--- t-test tables --->
-			<div class="container">
-				<div class="floatLeft">
-					<table align="center" border="1px" cellpadding="5px">
-						<tr>
-							<th colspan="3">ANOVA Test</th>
-						</tr>
-						<tr>
-							<th></th>
-							<th>Statistic</th>
-							<th>P-Value</th>
-						</tr>
-						<tr>
-							<th>Incidence Rate</th>
-							<th>0.0038</th>
-							<th>0.9511</th>
-						</tr>
-						<tr>
-							<th>Mortality Rate</th>
-							<th>0.2609</th>
-							<th>0.6107</th>
-						</tr>
-					</table>
-				</div>
-				<div class="floatRight">
-					<table align="center" border="1px" cellpadding="5px">
-						<tr>
-							<th colspan="3">Data Sets</th>
-						</tr>
-						<tr>
-							<th></th>
-							<th>Incidence</th>
-							<th>Mortality</th>
-						</tr>
-						<tr>
-							<th>Female</th>
-							<th>4,062,174 people</th>
-							<th>1,397,428 people</th>
-						</tr>
-						<tr>
-							<th>Male</th>
-							<th>4,114,287 people</th>
-							<th>1,550,279 people</th>
-						</tr>
-					</table>
-				</div>
-			</div>
+			<p>
+				<br />
+			
+				The following diagram is called a Sankey Plot, and it looks a little deeper into the "Data Sets"
+                table above. It is relatively intuitive for understanding where numbers are coming from, or where
+                they are going.
+			</p>
+		
 		</div>
+		
+		<div class="mapAlignCenter">
+			<iframe src="project_files/sankey_plot.html" frameborder="5" scrolling="no" width="100%" height="512"></iframe>
+		</div>
+        
+        <div class="alignLeft">
+            <p>
+                It is much easier to see from the Sankey Plot that the incidence and mortality rate between men and
+                women is very small. Hovering over any portion of the graph will show an interactive that
+                represents the number of people belonging to said group.
+                <br />
+                Hovering over the gray bar next to "Total Incidence and Mortality" shows that approximately 11.1
+                million people are represented in this diagram; 5.46 million are females, and the remaining 5.66
+                million are men. From here, females have 4.06 million individuals that have been diagnosed from
+                cancer, but have not died from it. The remaining 1.4 million have unfortunately passed away.
+                <br />
+                On the male side, an almost-equivalent number of diagnoses have been documented as females, at 4.11
+                million incidences. Along these same lines, more men have also died due to cancer, at 1.55 million
+                deaths. As explained previously, this difference is due to an ever-so-slightly higher male-to-female
+                population.
+            </p>
+        </div>
+		
+		<div class="mapAlignCenter">
+        
+        </div>
+		
 		<div class="alignLeft">
 			<br />
 			<h2><u>Citations</u></h2>
@@ -192,10 +228,13 @@
 					href="https://github.com/JoshLoecker/BioinformaticsFinalProject" target="_blank">GitHub Repo.</a>
 				The raw data can be found under "statistics/map_data.csv".
 				<br />
-				Cancer Statistics - National Cancer Institute. (2018). Retrieved from https://www.cancer.gov/about-cancer/understanding/statistics
+				Cancer Statistics - National Cancer Institute. (2018). Retrieved from
+				<a href="https://www.cancer.gov/about-cancer/understanding/statistics" target="_blank">
+					https://www.cancer.gov/about-cancer/understanding/statistics</a>
 				<br />
-				Smirnova, J. (2015). See where women outnumber men around the world (and why). Retrieved from
-				https://www.washingtonpost.com/news/worldviews/wp/2015/08/19/see-where-women-outnumber-men-around-the-world-and-why/
+				Smirnova, J. (2015). See where women outnumber men around the world (and why). Retrieved from <a
+					href="https://www.washingtonpost.com/news/worldviews/wp/2015/08/19/see-where-women-outnumber-men-around-the-world-and-why/"
+					target="_blank">https://www.washingtonpost.com/news/worldviews/wp/2015/08/19/see-where-women-outnumber-men-around-the-world-and-why/</a>
 			</p>
 		</div>
 	</body>

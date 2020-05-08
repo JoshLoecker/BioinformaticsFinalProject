@@ -41,6 +41,28 @@ html {
     color: red;
 }
 
-.floatLeft { float: left; padding-left: 225px;}
-.floatRight {float: right; padding-right: 200px;}
-.container { overflow: hidden; }
+.th {font-weight: normal; }
+
+.table{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+.td {
+    font-weight: normal;
+    border: solid 1px black;
+    
+    padding-top: 3px;
+    padding-bottom: 3px;
+    
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.tdBlank {
+    border-top: solid 1px white;
+    border-bottom: solid 1px white;
+    padding-left: 20px;
+    padding-right: 20px;
+}

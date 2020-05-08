@@ -7,7 +7,7 @@
 import numpy as np
 import pandas as pd
 import scipy.stats as stats
-import matplotlib.pyplot as plt
+
 
 class StatisticalTest:
 	fips = 'fips'
@@ -35,7 +35,6 @@ class StatisticalTest:
 	def __init__(self):
 		values = self.return_values()
 		self.calculate_t_test(values)
-		# self.qq_plot(values)
 		self.average_group_population()
 
 	def return_values(self):
@@ -57,30 +56,10 @@ class StatisticalTest:
 	def calculate_t_test(self, values):
 
 		# calculate incidence rate between males and females
-		# null hypothesis: men and women have similar incidence rates
-		# alternate hypothesis: incidence rates between men and women are different
-		# p-value
-		#
+		# null hypothesis: men and women have similar incidence/mortality rates
 
 		incidence_statistic, incidence_p_value = stats.f_oneway(values[0], values[2])
 		mortality_statistic, mortality_p_value = stats.f_oneway(values[1], values[3])
-
-
-
-
-
-	# values: female_incidence, female_mortality, male_incidence, male_mortality
-	def qq_plot(self, values):
-		stats.probplot(values[0])
-
-		fig = plt.figure()
-		ax = fig.add_subplot(111)
-		x = stats.loggamma.rvs(c=2.5, size=len(values[0]))
-		res = stats.probplot(x, dist=stats.loggamma, sparams=(2.5,), plot=ax)
-		ax.set_title("This is my title")
-		plt.show()
-
-
 
 	def average_group_population(self):
 		female_incidence = 0
