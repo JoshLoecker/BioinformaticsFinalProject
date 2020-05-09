@@ -7,6 +7,7 @@
 import numpy as np
 import pandas as pd
 import scipy.stats as stats
+from sklearn import preprocessing
 
 
 class StatisticalTest:
@@ -72,3 +73,25 @@ class StatisticalTest:
 			female_mortality += StatisticalTest.data_frame[StatisticalTest.female_mortality][index]
 			male_incidence += StatisticalTest.data_frame[StatisticalTest.male_incidence][index]
 			male_mortality += StatisticalTest.data_frame[StatisticalTest.male_mortality][index]
+
+	"""
+	This function will standardize the data frame passed in
+	standardize: a data set containing a mean of 0 and an standard deviation of 1
+	Steps:
+		1) Calculate mean of data set 
+		2) Calculate standard deviation of set
+		3) Subtract mean from each value
+		4) Divide the new value by the standard deviation
+		
+		(x - max) / (max - min)
+	"""
+	@staticmethod
+	def standardize_data(data_frame: pd.DataFrame):
+		new_df = pd.DataFrame.copy(data_frame)
+		for item in new_df:
+
+			preprocessing.normalize(np.array(new_df[item]))
+			print(new_df[item])
+
+		return new_df
+

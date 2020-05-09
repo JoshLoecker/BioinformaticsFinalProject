@@ -1,23 +1,4 @@
-from DataFrame import DataFrame
-import pandas as pd
-def load_data():
-
-	with open(r"statistics/state_fips_master.csv") as states:
-		state_list = pd.read_csv(states, sep=',', header=0, dtype={'state_name': str,
-		                                                           'state_abbr': str,
-		                                                           'long_name': str,
-		                                                           'fips': str,
-		                                                           'sumlev': str,
-		                                                           'region': str,
-		                                                           'division': str,
-		                                                           'state': str,
-		                                                           'region_name': str,
-		                                                           'division_name': str
-		                                                           })
-		for line in state_list['state_name']:
-			DataFrame.state_list.append(line)
-
-	# open the data file BYAREA.txt in read mode
+# open the data file BYAREA.txt in read mode
 	with open(DataFrame.data_file, mode='r') as readcsv:
 		index = 0
 

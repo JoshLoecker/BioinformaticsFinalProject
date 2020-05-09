@@ -51,8 +51,6 @@ class DataFrame:
 	@staticmethod
 	def FemaleIncidenceRate():
 
-
-
 		# temporary list for holding instances containing only U.S. state names
 		female_incidence = []
 		for instance in DataFrame.class_instances:

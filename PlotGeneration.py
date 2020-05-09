@@ -1,8 +1,9 @@
 import csv
 import pandas as pd
 import numpy as np
-from DataFrame import DataFrame
 import plotly
+from DataFrame import DataFrame
+from StatisticalTest import StatisticalTest
 
 
 class PlotGeneration:
@@ -229,21 +230,27 @@ class PlotGeneration:
 
 	@staticmethod
 	def generate_boxplot():
-		from plotly import express as px
-		incidence_values = PlotGeneration.map_data["total_incidence"]
+
+		incidence_values = StatisticalTest.standardize_data(PlotGeneration.map_data)
 		state_names = PlotGeneration.map_data['state_name']
 		incidence_values_per_thousand = []
 		for value in incidence_values:
 			incidence_values_per_thousand.append(value / 1000)
 
-		print(incidence_values_per_thousand)
+		trace0 = plotly.graph_objs.Box(
+			y=incidence_values_per_thousand,
+			name="Incidence Rate (per 1,000)"
+		)
+		trace1 = plotly.graph_objs.Box(
+			y=incidence_values,
+			name="Incidence Rate (raw)"
+		)
 
 		data = dict(
 			alignmentgroup=True,
 			orientation='v',
 			type='box',
-			y=[[1, 2, 3, 4, 5, 6], [7, 8, 9, 10]],
-			x=['a', 'b'],
+			y=incidence_values_per_thousand,
 			yaxis='y1',
 		)
 		layout = dict(
@@ -251,13 +258,25 @@ class PlotGeneration:
 			margin={'t': 60},
 		)
 
+		data = [trace0, trace1]
+		layout = plotly.graph_objs.Layout(title="Incidence Rate")
 		file_name = r"HTML Files/project_files/boxplot.html"
+		fig = plotly.graph_objs.Figure(data=data, layout=layout)
+		boxplot = plotly.offline.plot(fig,
+		                              filename=file_name,
+		                              auto_open=False,
+		                              show_link=True)
+
+
+
+		"""
+		boxplot.html
 		boxplot = dict(data=data, layout=layout)
 		link = [plotly.offline.plot(boxplot,
 		                             filename=file_name,
 		                             auto_open=False,
 		                             show_link=True) ]
-
+		"""
 
 
 		"""
