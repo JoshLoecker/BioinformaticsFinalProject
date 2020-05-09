@@ -1,7 +1,13 @@
 from DataFrame import DataFrame
 import pandas as pd
 def load_data():
+	"""
+	This is a custom file parser
+	Used this because pd.read_csv() was very, very slow
+	:return:
+	"""
 
+	# open file and set type of data under `dtype`
 	with open(r"statistics/state_fips_master.csv") as states:
 		state_list = pd.read_csv(states, sep=',', header=0, dtype={'state_name': str,
 		                                                           'state_abbr': str,
@@ -14,6 +20,7 @@ def load_data():
 		                                                           'region_name': str,
 		                                                           'division_name': str
 		                                                           })
+		# add state name to DataFrame
 		for line in state_list['state_name']:
 			DataFrame.state_list.append(line)
 

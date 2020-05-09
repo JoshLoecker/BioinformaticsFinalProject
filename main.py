@@ -22,5 +22,8 @@ if __name__ == "__main__":
 	PlotGeneration.generate_sankey()        # sankey plot generation
 	PlotGeneration.generate_boxplot()
 
-	print("Calculating statistics. . .")    # T-Test generation, calculating averages
+	print("Calculating statistics. . .\n")    # T-Test generation, calculating averages
 	StatisticalTest()
+	StatisticalTest.box_plot_statistics(PlotGeneration.map_data['total_incidence'], PlotGeneration.map_data['state_name'], 'incidence_rate')
+	print("")
+	StatisticalTest.box_plot_statistics(PlotGeneration.map_data['total_mortality'], PlotGeneration.map_data['state_name'], 'mortality_rate')

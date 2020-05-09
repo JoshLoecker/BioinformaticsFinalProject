@@ -215,10 +215,125 @@
                 population.
             </p>
         </div>
-		
-		<div class="mapAlignCenter">
         
+        <div class="alignLeft">
+            <p>
+                <br />
+                Due to the vast population differences between the U.S. states, the values for the incidence rate in
+                the following boxplot have been standardized. This allows the incidence rates between the states to
+                be compared much more easily. This was done by calculating the mean and standard deviation of the
+                population. Once this was done, the mean was subtracted from the incidence rate of each state, then
+                divided by the standard deviation. In the U.S. map above, California, Texas, and Florida were the
+                most prominent in all cases (female incidence, male mortality, etc.). In the case of California, it
+                has an incidence rate 3.95 standard deviations higher than average, and Florida has an incidence rate
+                2.66 standard deviations higher than average. As stated earlier, this is most likey attributed to
+                higher populations in both of these states.
+                
+                <br />
+                standardization formula: New Value = (Old Value - Mean) / std. dev
+                
+                <br />
+                Note: Unfortunately, I was unable to show hovering data for Q1, mean, Q3, etc. This is the reason for
+                showing them in the table.
+                <br />
+                <br />
+            </p>
         </div>
+        
+        <div class="container">
+            <div class="floatLeft">
+                <p>
+                    <!--- This is to lign up the boxplot tables with the boxpot graph --->
+                    <br />
+                </p>
+                
+                <table class="tableRight">
+                    <tr>
+                        <td class="td" colspan="2">Incidence Rate Box Plot Statistics</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Minimum</td>
+                        <td class="td">Wyoming (13,189 incidences)</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Maximum</td>
+                        <td class="td">Illinois (338,415 incidences)</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Mean</td>
+                        <td class="td">163529.22 incidences</td>
+                    </tr>
+                    <tr>
+                        <td class="td">First Quartile (Q1)</td>
+                        <td class="td">Nebraska (48,151 incidences)</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Second Quartile (Q2)</td>
+                        <td class="td">Alabama (130,550 incidences)</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Third Quartile (Q3)</td>
+                        <td class="td">Virginia (195,391 incidences)</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Interquartile Range (IQR)</td>
+                        <td class="td">147240 (Q3 - Q1)</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    
+                    <tr>
+                        <td class="tdBlankVertical"></td>
+                    </tr>
+                    <tr>
+                        <td class="tdBlankVertical"></td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    
+                    <tr>
+                        <td class="td" colspan="2">Mortality Rate Box Plot Statistics</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Minimum</td>
+                        <td class="td">Wyoming (4,716 deaths)</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Maximum</td>
+                        <td class="td">Pennsylvania (143,292 deaths)</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Mean</td>
+                        <td class="td">58954.14 deaths</td>
+                    </tr>
+                    <tr>
+                        <td class="td">First Quartile (Q1)</td>
+                        <td class="td">Nebraska (17,388 deaths)</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Second Quartile (Q2)</td>
+                        <td class="td">Minnesota (48,456 deaths)</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Third Quartile (Q3)</td>
+                        <td class="td">Virginia (73431 deaths)</td>
+                    </tr>
+                    <tr>
+                        <td class="td">Interquartile Range (IQR)</td>
+                        <td class="td">56,043 deaths</td>
+                    </tr>
+                    
+                </table>
+            </div>
+            <div class="floatRight">
+                <iframe src="project_files/boxplot.html" frameborder="5" scrolling="no" width="55%" height="700"></iframe>
+            </div>
+        </div>
+        
 		
 		<div class="alignLeft">
 			<br />
@@ -235,6 +350,12 @@
 				Smirnova, J. (2015). See where women outnumber men around the world (and why). Retrieved from <a
 					href="https://www.washingtonpost.com/news/worldviews/wp/2015/08/19/see-where-women-outnumber-men-around-the-world-and-why/"
 					target="_blank">https://www.washingtonpost.com/news/worldviews/wp/2015/08/19/see-where-women-outnumber-men-around-the-world-and-why/</a>
+                <br />
+                <br />
+                This was a fun project to put together. While I did not know much about statistics, I feel I
+                have learned very much here, even if some of the figures are wrongly interpreted. I had many
+                challanges to solve during the creation of this project, and it was a small victory each time I
+                overcame one of them.
 			</p>
 		</div>
 	</body>

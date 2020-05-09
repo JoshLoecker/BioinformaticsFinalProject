@@ -2,7 +2,6 @@ class DataFrame:
 	"""
 	Global variables for the class
 	"""
-
 	data_file = r"statistics/BYAREA.TXT"  # data file for instance/moratlity rates for the US
 	class_instances = []                  # this will hold the DataFrame instance
 	female_incidence = []                 # this will hold the DataFrame instances that relate to female incidence
@@ -11,27 +10,26 @@ class DataFrame:
 	male_mortality = []                   # this will hold the DataFrame instances that relate to male mortality
 	state_list = []                       # this will only hold state names
 
-	"""
-	these are the attributes in the data file
-	"""
-	# AREA
-	# AGE_ADJUSTED_CI_LOWER
-	# AGE_ADJUSTED_CI_UPPER
-	# AGE_ADJUSTED_RATE
-	# COUNT
-	# EVENT_TYPE
-	# POPULATION
-	# RACE
-	# SEX
-	# SITE
-	# YEAR
-	# CRUDE_CI_LOWER
-	# CRUDE_CI_UPPER
-	# CRUDE_RATE
-
 	# init function for storing data about each row in the BYAREA.txt file
 	def __init__(self, area, age_adjusted_ci_lower, age_adjusted_ci_upper, age_adjusted_rate,
 	             count, event_type, population, race, sex, site, year, crude_ci_lower, crude_ci_upper, crude_rate):
+		"""
+		These are the attributes located in BYAREA.txt
+		:param area:                    state name                                      str
+		:param age_adjusted_ci_lower:   lower confidence interval                       float
+		:param age_adjusted_ci_upper:   upper confidence interval                       float
+		:param age_adjusted_rate:       unsure what this is, not used                   float
+		:param count:                   unsure what this is, not used                   float
+		:param event_type:              incidence or mortality                          str
+		:param population:              number of individuals in the group              int
+		:param race:                    race of group                                   str
+		:param sex:                     male/female                                     str (can be represented as int)
+		:param site:                    where on the body cancer occurred               str
+		:param year:                    year of data collection                         str (some represented as `(2012-2016)`
+		:param crude_ci_lower:          unadjusted lower confidence interval            float
+		:param crude_ci_upper:          unadjusted upper confidence interval            float
+		:param crude_rate:              unsure what this is, unused                     float
+		"""
 		self.AREA = area
 		self.AGE_ADJUSTED_CI_LOWER = age_adjusted_ci_lower
 		self.AGE_ADJUSTED_CI_UPPER = age_adjusted_ci_upper
@@ -50,6 +48,12 @@ class DataFrame:
 	# this will parse the female incidence rates and load them into the DataFrame.female_incidence list
 	@staticmethod
 	def FemaleIncidenceRate():
+		"""
+		This function will scrape the BYAREA.txt file and collect female incidence rates where all cancer sites are added together
+		requirements for the search are in the nested-if statements on the right side of the operator
+		stores the values in the DataFrame.female_incidence list
+		:return:
+		"""
 
 		# temporary list for holding instances containing only U.S. state names
 		female_incidence = []
@@ -73,6 +77,13 @@ class DataFrame:
 	# this will parse the female incidence rates and load them into the DataFrame.female_mortality list
 	@staticmethod
 	def FemaleMortalityRate():
+		"""
+		This function will scrape the BYAREA.txt file and collect female incidence rates where all cancer sites are added together
+		requirements for the search are in the nested-if statements on the right side of the operator
+		stores the values in the DataFrame.female_mortality list
+		:return:
+		"""
+
 		# temporary list for holding instances containing only U.S. state names
 		female_mortality = []
 		for instance in DataFrame.class_instances:
@@ -96,6 +107,13 @@ class DataFrame:
 	# This will keep results in the DataFrame.male_incidence list
 	@staticmethod
 	def MaleIncidenceRate():
+		"""
+
+		This function will scrape the BYAREA.txt file and collect female incidence rates where all cancer sites are added together
+		requirements for the search are in the nested-if statements on the right side of the operator
+		stores the values in the DataFrame.male_incidence list
+		:return:
+		"""
 		male_incidence = []
 		for incidence in DataFrame.class_instances:
 			# All male incidence
@@ -116,6 +134,12 @@ class DataFrame:
 	# This will keep results in the DataFrame.male_mortality list
 	@staticmethod
 	def MaleMortalityRate():
+		"""
+		This function will scrape the BYAREA.txt file and collect female incidence rates where all cancer sites are added together
+		requirements for the search are in the nested-if statements on the right side of the operator
+		stores the values in the DataFrame.male_mortality list
+		:return:
+		"""
 		male_mortality = []
 		for mortality in DataFrame.class_instances:
 			# All male incidence
@@ -135,7 +159,12 @@ class DataFrame:
 	# this provides a more simple method of printing DataFrame instances, used mostly in debugging
 	@staticmethod
 	def PrintInstance(frame, attribute):
-		"""available attribute options are: area, count, event, population, race, sex, site, year"""
+		"""
+		This will print attributes from a selected DataFrame instance
+		:param frame: what frame would you like to print
+		:param attribute: what attribute to print (options: area, count, event, population, race, sex, site, year)
+		:return:
+		"""
 		if attribute.lower() == "all":
 			print("Area: %s" % frame.area)
 			print("Count: %s" % frame.count)

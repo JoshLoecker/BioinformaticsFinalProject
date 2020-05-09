@@ -31,29 +31,14 @@ class PlotGeneration:
 	                               total_mortality: int
 	                               })
 
-	@staticmethod
-	def calculate_max_value(key):
-		max_value = 0
-		data_frame = pd.read_csv(r"statistics/map_data.csv",
-		                         dtype={ PlotGeneration.fips: str,
-		                                 PlotGeneration.state_abbr: str,
-		                                 PlotGeneration.female_incidence: str,
-		                                 PlotGeneration.female_mortality: str,
-		                                 PlotGeneration.male_incidence: str,
-		                                 PlotGeneration.male_mortality: str,
-		                                 PlotGeneration.total_incidence: str,
-		                                 PlotGeneration.total_mortality: str
-		                                 })
-		for value in data_frame[ key ]:
-			if value > max_value:
-				max_value = value
-		data_frame.close()
-		return max_value
 
 	# FemaleMortalityCount and MaleMortalityCount functions will be needed in the DataFrame class
 	@staticmethod
 	def create_csv():
-		# data from https://raw.githubusercontent.com/kjhealy/fips-codes/master/state_fips_master.csv
+		"""
+		data from https://raw.githubusercontent.com/kjhealy/fips-codes/master/state_fips_master.csv
+		This function will create the map_data.csv file for reading later.
+		"""
 		data = r"statistics/state_fips_master.csv"
 		state_info = pd.read_csv(data, sep=',', header=0, dtype={ 'state_name': str,
 		                                                          'state_abbr': str,
@@ -100,21 +85,21 @@ class PlotGeneration:
 				        ]
 				filewriter.writerow(row)
 
-	"""
-	The following map functions create a map for each of the types of data available, along with each sex (male/female)
-
-	Total incidence map: A choropleth map containing data about the incidences of cancer found within each state
-	Total mortality map: A choropleth map containing data about death as a result of cancer found within each state
-	Female incidence map: A choropleth map containing data about the incidences of cancer found within each state, for female only
-	Female incidence map: A choropleth map containing data about the death as a result of cancer found within each state, for female only
-	Male incidence map: A choropleth map containing data about the incidences of cancer found within each state, for male only
-	Male incidence map: A choropleth map containing data about the death as a result of cancer found within each state, for male only
-	"""
-
 	@staticmethod
 	def generate_choropleth():
-		# read data from the map_data CSV file
+		"""
+		This function will create a choropleth map for each data available (male/female incidence/mortality)
+		A total of six maps are created; they are outlined below
 
+		Total incidence map: A choropleth map containing data about the incidences of cancer found within each state
+		Total mortality map: A choropleth map containing data about death as a result of cancer found within each state
+		Female incidence map: A choropleth map containing data about the incidences of cancer found within each state, for female only
+		Female incidence map: A choropleth map containing data about the death as a result of cancer found within each state, for female only
+		Male incidence map: A choropleth map containing data about the incidences of cancer found within each state, for male only
+		Male incidence map: A choropleth map containing data about the death as a result of cancer found within each state, for male only
+		"""
+
+		# read data from the map_data CSV file
 		#  key       [0]        [1]        [2]
 		# {map type: [map_name, bar_title, COLOR_SCALE]}
 		map_labels = { 'total_incidence': [ 'Graph 1) Total Incidence Rate', 'Incidence Rate (people)' ],
@@ -126,7 +111,6 @@ class PlotGeneration:
 		               }
 
 		# generate all map types: total/female/male incidence and mortality
-		links = [ ]  # send links to update_html() to update map HTML file location
 		for key in map_labels:
 			data = dict(type='choropleth',
 			            locations=PlotGeneration.map_data[ 'state_abbr' ],
@@ -145,15 +129,11 @@ class PlotGeneration:
 			# save maps
 			file_name = r"HTML Files/project_files/%s.html" % key
 			choropleth = dict(data=data, layout=layout)
-
 			link = plotly.offline.plot(choropleth,
 			                           filename=file_name,
 			                           auto_open=False,
 			                           show_link=True,
 			                           link_text="View on Plotly")
-			links.append(link)
-
-		PlotGeneration.update_html(links, "multi")
 
 	"""
 	This function will visualize two pie charts. The first will show incidence rate, death rate, and survial rate. Once
@@ -205,7 +185,6 @@ class PlotGeneration:
 		                             filename=file_name,
 		                             auto_open=False,
 		                             show_link=True) ]
-		PlotGeneration.update_html(link, "single")
 
 	@staticmethod
 	def return_sankey_values():
@@ -231,73 +210,59 @@ class PlotGeneration:
 	@staticmethod
 	def generate_boxplot():
 
-		incidence_values = StatisticalTest.standardize_data(PlotGeneration.map_data)
+		# returns a list of standardized data
+		# returns a pd.DataFrame that has one dimension
+		mortality_values = StatisticalTest.standardize_data(PlotGeneration.map_data['total_mortality'])
+		incidence_values = StatisticalTest.standardize_data(PlotGeneration.map_data['total_incidence'])
 		state_names = PlotGeneration.map_data['state_name']
-		incidence_values_per_thousand = []
-		for value in incidence_values:
-			incidence_values_per_thousand.append(value / 1000)
 
-		trace0 = plotly.graph_objs.Box(
-			y=incidence_values_per_thousand,
-			name="Incidence Rate (per 1,000)"
-		)
-		trace1 = plotly.graph_objs.Box(
+		"""
+		documentation: https://community.plotly.com/t/change-label-on-hover-in-ternary-plots/4667
+		create a dictionary wrapped in a list of equal length to incidence-values
+		The dictionary should have the state name as the key and its incidence_value as the value
+		Format - South Dakota: 0.123
+		
+		{0:s} = format the first value as a string
+		{1:.2f} = format the second value as a float with 2 decimal points
+		"""
+		outlier_text = ['{0:s}: {1:.2f} standard deviations away'.format(state_names[i], incidence_values[i]) for i in range(len(state_names))]
+
+		incidence = plotly.graph_objs.Box(
 			y=incidence_values,
-			name="Incidence Rate (raw)"
+			name="Incidence Rate",
+			boxpoints='suspectedoutliers',
+			text=outlier_text,
+			hoverinfo='text',
+			marker=dict(
+				color='rgb(8,81,156)',
+				outliercolor='rgba(219, 64, 82, 0.6)',
+				line=dict(
+					outliercolor='rgba(219, 64, 82, 0.6)',
+					outlierwidth=2)
+			)
 		)
 
-		data = dict(
-			alignmentgroup=True,
-			orientation='v',
-			type='box',
-			y=incidence_values_per_thousand,
-			yaxis='y1',
-		)
-		layout = dict(
-			boxmode='group',
-			margin={'t': 60},
+		mortality = plotly.graph_objs.Box(
+			y=mortality_values,
+			name="Mortality Rate",
+			boxpoints='suspectedoutliers',
+			text=outlier_text,
+			hoverinfo='text',
+			marker=dict(
+				color='rgb(43, 184, 0)',
+				outliercolor='rgba(43, 184, 0, 0.6)',
+				line=dict(
+					outliercolor='rgba(43, 184, 0, 0.6)',
+					outlierwidth=2)
+			)
 		)
 
-		data = [trace0, trace1]
-		layout = plotly.graph_objs.Layout(title="Incidence Rate")
+		data = [incidence, mortality]
+
+		layout = plotly.graph_objs.Layout(title="Standardized Box Plots")
 		file_name = r"HTML Files/project_files/boxplot.html"
 		fig = plotly.graph_objs.Figure(data=data, layout=layout)
 		boxplot = plotly.offline.plot(fig,
 		                              filename=file_name,
 		                              auto_open=False,
 		                              show_link=True)
-
-
-
-		"""
-		boxplot.html
-		boxplot = dict(data=data, layout=layout)
-		link = [plotly.offline.plot(boxplot,
-		                             filename=file_name,
-		                             auto_open=False,
-		                             show_link=True) ]
-		"""
-
-
-		"""
-
-		fig.show(filename="HTML Files/project_files/boxplot.html",
-		         auto_open=False,
-		         show_link=True)
-	
-	
-		file_name = r"HTML Files/project_files/boxplot.html"
-		link = [plotly.offline.plot(boxplot,
-		                             filename=file_name,
-		                             auto_open=False,
-		                             show_link=True) ]
-		# may need to use plotly.express for this
-		PlotGeneration.update_html(link, "single")
-		"""
-
-	# This function will simply save the HTML file into HTML Files/Project Files
-	# number should be "single" or "multi"
-	@staticmethod
-	def update_html(links: list, number: str):
-		# TODO: write each item in links to HTML Files/Project Files so maps are updated if something changes above
-		pass
