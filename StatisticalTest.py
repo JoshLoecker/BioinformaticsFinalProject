@@ -33,7 +33,8 @@ class StatisticalTest:
 		values = self.return_values()
 		self.calculate_ANOVA_test(values)
 
-	def return_values(self):
+	@staticmethod
+	def return_values():
 		"""
 		This function will collect the female and male mortality and incidence rates from the map_data.csv file
 		:return: female_incidence: list, female_mortality: list, male_incidence: list, male_mortality: list
@@ -50,8 +51,8 @@ class StatisticalTest:
 
 		return female_incidence, female_mortality, male_incidence, male_mortality
 
-
-	def calculate_ANOVA_test(self, values):
+	@staticmethod
+	def calculate_ANOVA_test(values):
 		"""
 		# values: female_incidence, female_mortality, male_incidence, male_mortality
 		calculates an ANOVA test to determine if there is a statistical difference between men and women's incidence/mortality rate of cancer
@@ -86,14 +87,14 @@ class StatisticalTest:
 	def box_plot_statistics(values: pd.DataFrame, state_names: pd.DataFrame, data_to_use: str):
 		list_of_values = []  # create a nested list to correlate state name with value. Allows for sorting. [state_name, value]
 
-		# incidence rate has Pennsulvania as an outlier, while mortality rate does not
+		# incidence rate has Pennsylvania as an outlier, while mortality rate does not
 		outlier_list = ['California', 'Florida', 'New York', 'Texas']
 		if data_to_use == 'incidence_rate':
 			outlier_list.append('Pennsylvania')
 
 		# create nested list
 		for i in range(len(values)):
-			list_of_values.append( [state_names[i], values[i]])
+			list_of_values.append([state_names[i], values[i]])
 
 		# sort value from low to high
 		list_of_values = sorted(list_of_values, key=lambda x: x[1])

@@ -20,17 +20,16 @@ class PlotGeneration:
 	total_mortality = 'total_mortality'
 	state_population = 'state_population'
 	map_data = pd.read_csv(r"statistics/map_data.csv",
-	                       dtype={ fips: str,
-	                               state_abbr: str,
-	                               state_name: str,
-	                               female_incidence: int,
-	                               female_mortality: int,
-	                               male_incidence: int,
-	                               male_mortality: int,
-	                               total_incidence: int,
-	                               total_mortality: int
-	                               })
-
+	                       dtype={fips: str,
+	                              state_abbr: str,
+	                              state_name: str,
+	                              female_incidence: int,
+	                              female_mortality: int,
+	                              male_incidence: int,
+	                              male_mortality: int,
+	                              total_incidence: int,
+	                              total_mortality: int
+	                              })
 
 	# FemaleMortalityCount and MaleMortalityCount functions will be needed in the DataFrame class
 	@staticmethod
@@ -40,49 +39,49 @@ class PlotGeneration:
 		This function will create the map_data.csv file for reading later.
 		"""
 		data = r"statistics/state_fips_master.csv"
-		state_info = pd.read_csv(data, sep=',', header=0, dtype={ 'state_name': str,
-		                                                          'state_abbr': str,
-		                                                          'long_name': str,
-		                                                          'fips': str,
-		                                                          'sumlev': str,
-		                                                          'region': str,
-		                                                          'division': str,
-		                                                          'state': str,
-		                                                          'region_name': str,
-		                                                          'division_name': str,
-		                                                          'state_population': str
-		                                                          })
+		state_info = pd.read_csv(data, sep=',', header=0, dtype={'state_name': str,
+		                                                         'state_abbr': str,
+		                                                         'long_name': str,
+		                                                         'fips': str,
+		                                                         'sumlev': str,
+		                                                         'region': str,
+		                                                         'division': str,
+		                                                         'state': str,
+		                                                         'region_name': str,
+		                                                         'division_name': str,
+		                                                         'state_population': str
+		                                                         })
 
 		# this csv file will act as the database for information on creating the map
 		with open(r"statistics/map_data.csv", 'w', newline="") as csvfile:
 			filewriter = csv.writer(csvfile, delimiter=',')
 
 			# column headers
-			filewriter.writerow([ PlotGeneration.fips,
-			                      PlotGeneration.state_abbr,
-			                      PlotGeneration.state_name,
-			                      PlotGeneration.state_population,
-			                      PlotGeneration.female_incidence,
-			                      PlotGeneration.female_mortality,
-			                      PlotGeneration.male_incidence,
-			                      PlotGeneration.male_mortality,
-			                      PlotGeneration.total_incidence,
-			                      PlotGeneration.total_mortality
-			                      ])
+			filewriter.writerow([PlotGeneration.fips,
+			                     PlotGeneration.state_abbr,
+			                     PlotGeneration.state_name,
+			                     PlotGeneration.state_population,
+			                     PlotGeneration.female_incidence,
+			                     PlotGeneration.female_mortality,
+			                     PlotGeneration.male_incidence,
+			                     PlotGeneration.male_mortality,
+			                     PlotGeneration.total_incidence,
+			                     PlotGeneration.total_mortality
+			                     ])
 
 			# write lines from the state_info github content into the `database` csv file (previous `with open` statement)
 			for index in range(len(state_info)):
-				row = [ state_info[ 'fips' ][ index ],
-				        state_info[ 'state_abbr' ][ index ],
-				        state_info[ 'state_name' ][ index ],
-				        state_info[ 'state_population' ][ index ],
-				        DataFrame.female_incidence[ index ].COUNT,
-				        DataFrame.female_mortality[ index ].COUNT,
-				        DataFrame.male_incidence[ index ].COUNT,
-				        DataFrame.male_mortality[ index ].COUNT,
-				        int(DataFrame.female_incidence[ index ].COUNT) + int(DataFrame.male_incidence[ index ].COUNT),
-				        int(DataFrame.female_mortality[ index ].COUNT) + int(DataFrame.male_mortality[ index ].COUNT)
-				        ]
+				row = [state_info['fips'][index],
+				       state_info['state_abbr'][index],
+				       state_info['state_name'][index],
+				       state_info['state_population'][index],
+				       DataFrame.female_incidence[index].COUNT,
+				       DataFrame.female_mortality[index].COUNT,
+				       DataFrame.male_incidence[index].COUNT,
+				       DataFrame.male_mortality[index].COUNT,
+				       int(DataFrame.female_incidence[index].COUNT) + int(DataFrame.male_incidence[index].COUNT),
+				       int(DataFrame.female_mortality[index].COUNT) + int(DataFrame.male_mortality[index].COUNT)
+				       ]
 				filewriter.writerow(row)
 
 	@staticmethod
@@ -102,27 +101,27 @@ class PlotGeneration:
 		# read data from the map_data CSV file
 		#  key       [0]        [1]        [2]
 		# {map type: [map_name, bar_title, COLOR_SCALE]}
-		map_labels = { 'total_incidence': [ 'Graph 1) Total Incidence Rate', 'Incidence Rate (people)' ],
-		               'total_mortality': [ 'Graph 2) Total Mortality Rate', 'Mortality Rate (people)' ],
-		               'female_incidence': [ 'Graph 3) Female Incidence Rate', 'Incidence Rate (people)' ],
-		               'female_mortality': [ 'Graph 4) Female Mortality Rate', 'Mortality Rat (people)e' ],
-		               'male_incidence': [ 'Graph 5) Male Incidence Rate', 'Incidence Rate (people)' ],
-		               'male_mortality': [ 'Graph 6) Male Mortality Rate', 'Mortality Rate (people)' ]
-		               }
+		map_labels = {'total_incidence': ['Graph 1) Total Incidence Rate', 'Incidence Rate (people)'],
+		              'total_mortality': ['Graph 2) Total Mortality Rate', 'Mortality Rate (people)'],
+		              'female_incidence': ['Graph 3) Female Incidence Rate', 'Incidence Rate (people)'],
+		              'female_mortality': ['Graph 4) Female Mortality Rate', 'Mortality Rat (people)e'],
+		              'male_incidence': ['Graph 5) Male Incidence Rate', 'Incidence Rate (people)'],
+		              'male_mortality': ['Graph 6) Male Mortality Rate', 'Mortality Rate (people)']
+		              }
 
 		# generate all map types: total/female/male incidence and mortality
 		for key in map_labels:
 			data = dict(type='choropleth',
-			            locations=PlotGeneration.map_data[ 'state_abbr' ],
+			            locations=PlotGeneration.map_data['state_abbr'],
 			            locationmode='USA-states',
-			            text=PlotGeneration.map_data[ 'state_name' ],
+			            text=PlotGeneration.map_data['state_name'],
 			            zmin=0,
 			            zmax=850000,  # 850,000
-			            z=PlotGeneration.map_data[ key ],
+			            z=PlotGeneration.map_data[key],
 			            colorscale='agsunset',
 			            reversescale=True,
-			            colorbar_title=map_labels[ key ][ 1 ])
-			layout = dict(title=map_labels[ key ][ 0 ],
+			            colorbar_title=map_labels[key][1])
+			layout = dict(title=map_labels[key][0],
 			              dragmode=False,
 			              geo_scope='usa')
 
@@ -146,23 +145,23 @@ class PlotGeneration:
 
 	@staticmethod
 	def generate_sankey():
-		labels = [ "Total Incidence and Mortality",
-		           "Female",
-		           "Male",
-		           "Incidence",  # Female
-		           "Mortality",  # Female
-		           "Incidence",  # Male
-		           "Mortality" ]  # Male
+		labels = ["Total Incidence and Mortality",
+		          "Female",
+		          "Male",
+		          "Incidence",  # Female
+		          "Mortality",  # Female
+		          "Incidence",  # Male
+		          "Mortality"]  # Male
 
-		colors = [ "#999999",  # Total incidence and mortality
-		           "#ff33cc",  # Female
-		           "#0066ff",  # Male
-		           "#009933",  # Female incidence
-		           "#ff0000",  # Female mortality
-		           "#009933",  # Male incidence
-		           "#ff0000" ]  # Male mortality
-		sources = [ 0, 0, 1, 1, 2, 2 ]
-		targets = [ 1, 2, 3, 4, 5, 6 ]
+		colors = ["#999999",  # Total incidence and mortality
+		          "#ff33cc",  # Female
+		          "#0066ff",  # Male
+		          "#009933",  # Female incidence
+		          "#ff0000",  # Female mortality
+		          "#009933",  # Male incidence
+		          "#ff0000"]  # Male mortality
+		sources = [0, 0, 1, 1, 2, 2]
+		targets = [1, 2, 3, 4, 5, 6]
 		values = PlotGeneration.return_sankey_values()
 
 		data = dict(type='sankey',
@@ -181,18 +180,18 @@ class PlotGeneration:
 
 		file_name = r"HTML Files/project_files/sankey_plot.html"
 		sankey = dict(data=data, layout=layout)
-		link = [ plotly.offline.plot(sankey,
-		                             filename=file_name,
-		                             auto_open=False,
-		                             show_link=True) ]
+		link = [plotly.offline.plot(sankey,
+		                            filename=file_name,
+		                            auto_open=False,
+		                            show_link=True)]
 
 	@staticmethod
 	def return_sankey_values():
-		female_incidence = np.sum(PlotGeneration.map_data[ 'female_incidence' ])
-		female_mortality = np.sum(PlotGeneration.map_data[ 'female_mortality' ])
+		female_incidence = np.sum(PlotGeneration.map_data['female_incidence'])
+		female_mortality = np.sum(PlotGeneration.map_data['female_mortality'])
 
-		male_incidence = np.sum(PlotGeneration.map_data[ 'male_incidence' ])
-		male_mortality = np.sum(PlotGeneration.map_data[ 'male_mortality' ])
+		male_incidence = np.sum(PlotGeneration.map_data['male_incidence'])
+		male_mortality = np.sum(PlotGeneration.map_data['male_mortality'])
 
 		total_female = female_incidence + female_mortality
 		total_male = male_incidence + male_mortality
@@ -233,6 +232,7 @@ class PlotGeneration:
 			boxpoints='suspectedoutliers',
 			text=outlier_text,
 			hoverinfo='text',
+			xaxis=dict(title="Standard Deviations"),
 			marker=dict(
 				color='rgb(8,81,156)',
 				outliercolor='rgba(219, 64, 82, 0.6)',
